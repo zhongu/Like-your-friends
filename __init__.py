@@ -15,7 +15,7 @@ from ascript.android import action
 from ascript.android import node
 # 导入图色检索模块
 from ascript.android import screen
-
+from airscript.system import R
 
 # 函数名称：点击坐标
 class Rect:
@@ -31,10 +31,6 @@ def click_coordinate(rect1):
 
 
 # 点击的传入坐标，rect1为传入的范围坐标
-
-deviation = 0
-# 点赞造成的偏差
-
 # 判断是不是在朋友圈里面
 if FindImages(R(__file__).res("/img/thumb_up_first.png")).confidence(0.95).find() is None:
     discover = Selector().text("发现").find()
@@ -50,12 +46,16 @@ if FindImages(R(__file__).res("/img/thumb_up_first.png")).confidence(0.95).find(
 else:
     print("在朋友圈界面")
 
-for j in range(5):
+for j in range(20):
+    if Selector().text("发消息").type("TextView").find():
+        Back = Selector().desc("返回").type("ImageView").find()
+        Back_rect = Back.rect
+        click(click_coordinate(Back_rect))
+        time.sleep(0.5)
+        print("已返回")
     thumb = FindImages(R(__file__).res("/img/thumb_up_first.png")).confidence(0.95).find_all()
-    sorted_I = sorted(thumb, key=lambda x: x['result'][1])
+    sorted_I = sorted(thumb, key=lambda x: x['result'][1], reverse=True)
     thumb=sorted_I
-    deviation_count=0
-    # 定义偏差为0
     print('一共{}次点赞'.format(len(thumb)))
 
     for i in range(len(thumb)):
@@ -68,7 +68,7 @@ for j in range(5):
 
         print('进行了第{}次点赞'.format(i + 1))
         # 点击..
-        click(thumb[i]['result'][0],thumb[i]['result'][1]+2*deviation_count*deviation ,50)
+        click(thumb[i]['result'][0],thumb[i]['result'][1] ,50)
         # 输出中心坐标
         print(thumb[i]['result'])
         print("准备点赞")
@@ -81,11 +81,11 @@ for j in range(5):
             Cancel_thumb_up_rect = Cancel_thumb_up[0].rect
             x = Cancel_thumb_up_rect.left - 200
             y = Cancel_thumb_up_rect.top
-            click(x, y, 20)
+            click(x, y, 50)
             print(x, y)  # 输出中心坐标
             print("已经点赞过了")
             time.sleep(1.25)
-            deviation_count-=1
+
 
         else:
             # 否：是点赞界面
@@ -97,17 +97,16 @@ for j in range(5):
             if Selector().text("赞").desc("赞").type("TextView").find():
                 thumb_up = Selector().text("赞").desc("赞").type("TextView").find()
                 thumb_up_rect = thumb_up.rect
-                deviation = abs(thumb_up_rect.bottom - thumb_up_rect.top)
-                # 获取每次点赞的偏差
+
                 click(click_coordinate(thumb_up_rect))
                 print(click_coordinate(thumb_up_rect))  # 输出中心坐标
                 print("点赞成功")
                 time.sleep(1.25)
-        deviation_count+=1
+
     slide(100, 1700, 100, 200, 500)
     time.sleep(2)
     print("向下滑动")
 print("结束哩")
-
+R.exit()
 
 
