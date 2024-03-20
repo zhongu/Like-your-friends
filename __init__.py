@@ -35,13 +35,12 @@ def tunnel(k, v):
         resobj = json.loads(v)
         print(resobj)
         print('次数', resobj['user'])
-        cnt=resobj['user']
-        count=int(cnt)
+        cnt = resobj['user']
+        count = int(cnt)
         Moment_detection()
         for j in range(count): like_yourfriends();
         print("结束哩")
         R.exit()
-
 
 
 formw = Window(R(__file__).ui("form.html"), tunnel)
