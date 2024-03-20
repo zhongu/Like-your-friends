@@ -45,7 +45,7 @@ def tunnel(k, v):
 
 
 formw = Window(R(__file__).ui("form.html"), tunnel)
-formw.height("70vh")
+formw.height("50vh")
 formw.show()
 formw.drag(True)
 # def tunner(k, v):
