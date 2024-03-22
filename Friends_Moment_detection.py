@@ -20,7 +20,8 @@ from .Click_function import click_coordinate
 
 def Moment_detection():
     # 判断是不是在朋友圈里面
-    if FindImages(R(__file__).res("/img/thumb_up_first.png")).confidence(0.95).find() is None:
+    try:
+        Find=FindImages(R(__file__).res("/img/thumb_up_first.png")).confidence(0.95).find()
         discover = Selector().text("发现").find()
         discover_rect = discover.rect
         click(click_coordinate(discover_rect))
@@ -31,5 +32,5 @@ def Moment_detection():
         click(click_coordinate(circle_of_friends_rect))
         print(("不在朋友圈界面"))
         time.sleep(1)
-    else:
+    except:
         print("在朋友圈界面")
