@@ -24,9 +24,6 @@ from airscript.ui import Window
 # from .res.ui import form
 import json
 
-count = 0
-
-
 def tunnel(k, v):
     if k == "close":
         print(v)  # 用户点X关闭了窗口
@@ -37,7 +34,9 @@ def tunnel(k, v):
         print('次数', resobj['user'])
         cnt = resobj['user']
         count = int(cnt)
+        print(count)
         Moment_detection()
+        print(1)
         for j in range(count): like_yourfriends();
         print("结束哩")
         R.exit()
@@ -47,21 +46,8 @@ formw = Window(R(__file__).ui("form.html"), tunnel)
 formw.height("50vh")
 formw.show()
 formw.drag(True)
-
-# def tunner(k, v):
-#     global count
-#     print(k, v)
-#     count = v
-#     print(count)
-#     # Moment_detection()
-#     # for j in range(cont): like_yourfriends();
-#     # print("结束哩")
-#     # R.exit()
-#
-#
-# w = Window(R(__file__).ui("form.html"), tunner)
-# w.drag(True)
-# w.show()
-# print(type(count))
-
-# 输入你想翻阅朋友圈的页数
+# Moment_detection()
+# count=20
+# for j in range(count): like_yourfriends();
+# print("结束哩")
+# R.exit()
